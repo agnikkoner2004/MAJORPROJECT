@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/image.png">
+
+    <title> Stayclave | Holiday rentals, cabins, beach houses & more</title>
+
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="/css/rating.css" rel="stylesheet">
+</head>
+<body>
+
+    <%- include("../includes/navbar.ejs") %>
+
+    <% if (currentPath === "/listings") { %>
+
+
+        
+        <div id="hero-search" class="search-wrapper">
+            <form action="/listings" method="GET" class="search-bar d-flex align-items-center">
+
+                <div class="search-item">
+                    <label>Where</label>
+                    <input type="text" name="location" placeholder="Search destinations">
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="search-item">
+                    <label>Max Price</label>
+                    <input type="number" name="price" placeholder="Enter max price">
+                </div>
+
+                <button class="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+            </form>
+            <div class="mobile-search-icon">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+        </div>
+    <% } %>
+
+    <div class="container">
+        <%- include("../includes/flash.ejs") %>
+        <%- body %>
+    </div>
+
+    <%- include("../includes/footer.ejs") %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+    const heroSearch = document.getElementById("hero-search");
+
+    window.addEventListener("scroll", function () {
+        if (!heroSearch) return;
+
+        if (window.scrollY > 100) {
+            heroSearch.classList.add("shrink-search");
+        } else {
+            heroSearch.classList.remove("shrink-search");
+        }
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<% layout("layouts/boilerplate") %>
+
+<br/>
+
+<div class="row">
+  <div class="col-lg-6 col-md-8 col-sm-10 col-12 offset-lg-3 offset-md-2 offset-sm-1">
+
+    <h3>Edit your Listing</h3>
+    <br/>
+
+    <form method="post"
+          action="/listings/<%= listing._id %>?_method=PUT"
+          novalidate
+          class="needs-validation"
+          enctype="multipart/form-data">
+
+      <!-- TITLE -->
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text"
+               name="listing[title]"
+               value="<%= listing.title %>"
+               class="form-control"
+               required>
+
+        <div class="invalid-feedback">
+          Please provide a title.
+        </div>
+      </div>
+
+
+      <!-- DESCRIPTION -->
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="listing[description]"
+                  class="form-control"
+                  required><%= listing.description %></textarea>
+
+        <div class="invalid-feedback">
+          Please provide a description.
+        </div>
+      </div>
+
+
+      <!-- PRICE AND COUNTRY -->
+      <div class="row">
+
+        <div class="mb-3 col-md-4 col-12">
+          <label class="form-label">Price</label>
+          <input type="number"
+                 name="listing[price]"
+                 value="<%= listing.price %>"
+                 class="form-control"
+                 required>
+
+          <div class="invalid-feedback">
+            Please provide a price.
+          </div>
+        </div>
+
+        <div class="mb-3 col-md-8 col-12">
+          <label class="form-label">Country</label>
+          <input type="text"
+                 name="listing[country]"
+                 value="<%= listing.country %>"
+                 class="form-control"
+                 required>
+
+          <div class="invalid-feedback">
+            Please provide a valid country.
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- CATEGORY -->
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+
+        <select name="listing[category]"
+                class="form-control"
+                required>
+
+          <option value="">Select Category</option>
+
+          <option value="Trending"
+            <%= listing.category === "Trending" ? "selected" : "" %>>
+            Trending
+          </option>
+
+          <option value="Rooms"
+            <%= listing.category === "Rooms" ? "selected" : "" %>>
+            Rooms
+          </option>
+
+          <option value="Iconic Cities"
+            <%= listing.category === "Iconic Cities" ? "selected" : "" %>>
+            Iconic Cities
+          </option>
+
+          <option value="Mountains"
+            <%= listing.category === "Mountains" ? "selected" : "" %>>
+            Mountains
+          </option>
+
+          <option value="Castles"
+            <%= listing.category === "Castles" ? "selected" : "" %>>
+            Castles
+          </option>
+
+          <option value="Amazing Pools"
+            <%= listing.category === "Amazing Pools" ? "selected" : "" %>>
+            Amazing Pools
+          </option>
+
+          <option value="Camping"
+            <%= listing.category === "Camping" ? "selected" : "" %>>
+            Camping
+          </option>
+
+          <option value="Farms"
+            <%= listing.category === "Farms" ? "selected" : "" %>>
+            Farms
+          </option>
+
+          <option value="Arctic"
+            <%= listing.category === "Arctic" ? "selected" : "" %>>
+            Arctic
+          </option>
+
+        </select>
+
+        <div class="invalid-feedback">
+          Please select a category.
+        </div>
+
+      </div>
+
+
+      <!-- CURRENT IMAGE -->
+      <div class="mb-3">
+        <label class="form-label">Current Image</label><br>
+
+        <img src="<%= originalImageUrl %>"
+             alt="Current Image"
+             class="img-thumbnail"
+             style="max-width: 200px;">
+      </div>
+
+
+      <!-- NEW IMAGE -->
+      <div class="mb-3">
+        <label class="form-label">Upload New Image</label>
+
+        <input type="file"
+               name="image"
+               class="form-control">
+      </div>
+
+
+      <!-- LOCATION -->
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+
+        <input type="text"
+               name="listing[location]"
+               value="<%= listing.location %>"
+               class="form-control"
+               required>
+
+        <div class="invalid-feedback">
+          Please provide a valid location.
+        </div>
+      </div>
+
+
+      <!-- BUTTON -->
+      <br/>
+
+      <button class="btn btn-dark w-100">
+        Edit Listing
+      </button>
+
+    </form>
+
+    <script src="/js/script.js"></script>
+
+  </div>
+</div>

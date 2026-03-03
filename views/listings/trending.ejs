@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+    <h2>🔥 Trending Listings</h2>
+
+    <div class="row">
+        <% listings.forEach(listing => { %>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a href="/listings/<%= listing._id %>" class="text-decoration-none">
+
+                    <div class="card listing-card">
+                        <img src="<%= listing.image.url %>" 
+                             class="card-img-top" 
+                             style="height: 18rem; object-fit: cover;">
+
+                        <div class="card-body">
+                            <h5><%= listing.title %></h5>
+                            <p><%= listing.location %></p>
+                            <p>₹<%= listing.price %> / night</p>
+                            <p>👁 <%= listing.views %> views</p>
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+
+        <% }) %>
+    </div>
+</div>

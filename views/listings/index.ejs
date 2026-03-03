@@ -1,0 +1,289 @@
+<% layout('layouts/boilerplate') %> 
+
+
+<style>
+    #filters {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        padding: 20px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        color: #6c757d;
+        font-weight: 500;
+        transition: 0.2s ease;
+    }
+
+    .filter i {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .filter span {
+        font-size: 14px;
+    }
+
+    .filter:hover {
+        color: rgb(97, 80, 250);
+    }
+
+    .active-filter {
+        color: rgb(97, 80, 250);
+        border-bottom: 3px solid rgb(97, 80, 250);
+        padding-bottom: 6px;
+    }
+    .tax-info {
+        display: none;
+    }
+    .price{
+        transition: 0.3s ease; 
+
+
+        
+    }
+
+    .tax-toggle-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-size: 14px;
+}
+
+.form-switch .form-check-input {
+    width: 45px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: #7438ff; 
+    border-color: #7438ff;
+}
+
+
+/* HERO SEARCH WRAPPER */
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px 15px;
+    position: sticky;
+    top: 70px;
+    z-index: 999;
+    background: transparent;
+}
+
+/* SEARCH BAR MAIN CONTAINER */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 50px;
+    padding: 10px 12px 10px 18px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+}
+
+/* SEARCH ITEMS */
+.search-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* LABEL */
+.search-item label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+/* INPUT */
+.search-item input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+}
+
+/* DIVIDER */
+.divider {
+    width: 1px;
+    height: 35px;
+    background: #ddd;
+}
+
+/* SEARCH BUTTON */
+.search-btn {
+    border: none;
+    background: #7c3aed;
+    color: white;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.search-btn:hover {
+    background: #6d28d9;
+}
+
+
+/* MOBILE SEARCH ICON (hidden on desktop) */
+.mobile-search-icon {
+    display: none;
+}
+
+
+/* MOBILE VIEW */
+@media (max-width: 768px) {
+
+    /* Hide full search bar when scrolling */
+    .shrink-search .search-bar {
+        display: none;
+    }
+
+    /* Show search icon instead */
+    .shrink-search .mobile-search-icon {
+        display: flex;
+        position: fixed;
+
+        top: 70px;
+        right: 15px;
+
+        width: 45px;
+        height: 45px;
+
+        border-radius: 50%;
+
+        background: #7438ff;
+        color: white;
+
+        justify-content: center;
+        align-items: center;
+
+        font-size: 18px;
+
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+        z-index: 1000;
+
+        cursor: pointer;
+    }
+
+}
+
+
+
+
+
+
+</style>
+
+<div id="filters">
+    <a href="/listings/trending" class="filter text-decoration-none">
+        <i class="fa-solid fa-arrow-trend-up"></i>
+        <span>Trending</span>
+    </a>
+
+    <a href="/experiences" class="filter text-decoration-none">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <span>Experience</span>
+    </a>
+
+    <a href="/services" class="filter text-decoration-none">
+        <i class="fa-solid fa-concierge-bell"></i>
+        <span>Services</span>
+    </a>
+    
+  <div class="container">
+    <div class="d-flex justify-content-end mb-4">
+        <div class="tax-toggle-wrapper d-flex align-items-center px-3 py-2">
+            <span class="me-2 fw-semibold">Display total before taxes</span>
+            
+            <div class="form-check form-switch m-0">
+                <input class="form-check-input" type="checkbox" id="taxToggle">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<body>
+   
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2 mt-3">
+    <% for(let listing of allListings){ %>
+
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+
+            <div class="card col listing-card h-100">
+
+                <img src="<%= listing.image.url %>" 
+                     class="card-img-top" 
+                     alt="listing_image" 
+                     style="height: 20rem; object-fit: cover;">
+
+                <div class="card-img-overlay">Stayclave</div>
+
+                <div class="card-body">
+                    <b><h5 class="card-title"><%= listing.title %></h5></b>
+
+                    <p class="card-text price" data-original="<%= listing.price || 0 %>">
+                        ₹ <%= listing.price?.toLocaleString("en-IN") || "N/A" %> / night
+                    </p>
+
+                    <i class="tax-info">+18% GST</i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    <% } %>
+</div>
+
+
+</body>
+
+<script>
+    let taxSwitch = document.getElementById('taxToggle');
+    let prices = document.querySelectorAll('.price');
+
+    taxSwitch.addEventListener('change', function() {
+
+        prices.forEach(function(priceEl) {
+
+            let originalPrice = parseFloat(priceEl.dataset.original);
+            let gstRate = 0.18;
+            let gstPrice = originalPrice + (originalPrice * gstRate);
+
+            if (taxSwitch.checked) {
+                priceEl.innerHTML =
+                    `₹ ${gstPrice.toLocaleString("en-IN")} / night 
+                    <small class="text-muted">(incl. GST)</small>`;
+            } else {
+                priceEl.innerHTML =
+                    `₹ ${originalPrice.toLocaleString("en-IN")} / night`;
+            }
+
+        });
+
+    });
+</script>
+

@@ -1,0 +1,9 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+    <h2><%= experience.title %></h2>
+    <img src="<%= experience.image.url %>" class="img-fluid mb-3">
+    <p><%= experience.description %></p>
+    <h5>₹ <%= experience.price %> per person</h5>
+    <p><%= experience.location %>, <%= experience.country %></p>
+</div>
