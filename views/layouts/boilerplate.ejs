@@ -20,7 +20,8 @@
 
     <%- include("../includes/navbar.ejs") %>
 
-    <% if (currentPath === "/listings") { %>
+    <% if (request && request.path === "/listings") { %>
+
 
 
         
